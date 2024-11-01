@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-850px">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        video {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .heading{
+            color: white;
+            font-size: 30px ;
+            padding: 0;
+            margin-top: 0;
+            text-align: center;
+        }
+        .heading h1{
+            padding: 0;
+            margin-top: 15px;
+        }
+        .tt{
+            margin-top: -20px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 700px;
+            
+        }
+        table tr td{
+            background-color: rgba(0,0,0,0.3);
+        }
+        table {
+            width: 90%;
+            height: 80%;
+            border: 1px solid white;
+            color: white;
+            border-collapse: collapse; 
+        }
+        .greys {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+        }
+        th, td {
+            padding: 10px;
+            font-size: 20px;
+            width: calc(100% / 13);
+            text-align: center;
+            border: 1px solid white; 
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        td:hover {
+            transform: scale(1.1);
+            background-color: white;
+            color: black;
+            border: 1px solid #111;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 2%;
+            padding-right: 2%;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        span {
+            color: violet;
+        }
+
+        nav ul li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 10px 5px;
+        }
+        nav ul li a {
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(59, 25, 194, 0.7);
+            transition: background-color 0.3s;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid white;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+            border: 2px solid rgb(59, 25, 194);
+            
+        }
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 0px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        .accdetails {
+            position: absolute;
+            right: 2.1%;
+            height: 30px;
+            text-align: center;
+            width: 200px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding-top: 5px;
+            color: black;
+            margin-top: 0.5%;
+            display: none;
+        }
+        .popup {
+            font-family: 'Poppins',sans-serif;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 10px;
+            text-align: center;
+            color: black;
+            z-index: 1;
+            border: 2px solid #111;
+        }
+        .popup h3 {
+            margin: 0 0 15px;
+        }
+        .popup p {
+            margin: 20px 0;
+        }
+        .popup button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            background-color: #111;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <video src="media/homepagevidbg.mp4" autoplay loop muted></video>
+    <div class="hero">
+        <nav>
+            <h2 class="logo" style=" font-size: 30px; font-family:Verdana, Geneva, Tahoma, sans-serif; letter-spacing: 2px;">
+                <a href="home.html" style="text-decoration: none; color: lightblue;">Notes <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">4ALL</span></a>
+            </h2>
+            <ul>
+                <li><a href="home.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To-Do List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="contact.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </nav>
+        <div class="tt">
+            <table>
+                <tr cellpadding="15">
+                  <td>Day & Date</th>
+                  <td>Computer</th>
+                  <td>Mechanical</th>
+                  <td>IT</th>
+                  <td>Data Science</th>
+                </tr>
+                <tr>
+                  <td>Thursday, 28 November, 2024</td>
+                  <td onclick="showPopup('Basic Data Structures Portion','Unit 1 - Introduction to Data Structures,Unit 2 - Arrays & Structures,Unit 3 - Linear Data Structures,Unit 4 - Linear Data Structures II,Unit 5 - Linear Data Structures III')">Basic Data Structures (701CO0C013)</td>
+                  <td onclick="showPopup('You Dont Have this subject','')">Theory of Machines and Mechanisms (701ME0C016)</td>
+                  <td onclick="showPopup('You Dont Have this subject','')">Introduction to Data Communication and Networks (701110C004)</td>
+                  <td onclick="showPopup('Basic Data Structures Portion','Unit 1 - Introduction to Data Structures,Unit 2 - Arrays & Structures,Unit 3 - Linear Data Structures,Unit 4 - Linear Data Structures II,Unit 5 - Linear Data Structures III')">Basic Data Structures (701CO0C013)</td>
+                </tr>
+                <tr>
+                  <td>Saturday, 30 November, 2024</td>
+                  <td onclick="showPopup('Programming for Problem Solving','Unit 1 - Alogrithms and Flowcharts,Unit 2 - If else & Loops in C++,Unit 3 - Arrays ,Unit 4 - Functions & Strings,Unit 5 - Structures & Pointers')">Programming for Problem Solving (701CO0C018)</td>
+                  <td onclick="showPopup('Programming for Problem Solving','Unit 1 - Alogrithms and Flowcharts,Unit 2 - If else & Loops in C++,Unit 3 - Arrays ,Unit 4 - Functions & Strings,Unit 5 - Structures & Pointers')">Programming for Problem Solving (701CO0C018)</td>
+                  <td></td>
+                  <td onclick="showPopup('Programming for Problem Solving','Unit 1 - Alogrithms and Flowcharts,Unit 2 - If else & Loops in C++,Unit 3 - Arrays ,Unit 4 - Functions & Strings,Unit 5 - Structures & Pointers')">Programming for Problem Solving (701CO0C018)</td>
+                </tr>
+                <tr>
+                  <td>Monday, 2 December, 2024</td>
+                  <td></td>
+                  <td></td>
+                  <td onclick="showPopup('You Dont Have this subject','')">Python Fundamentals (701110C006) (Practical)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Tuesday, 3 December, 2024</td>
+                  <td>Management Accounting for Engineers (702TF0C001) (10.00 am - 1.00 pm)</td>
+                  <td onclick="showPopup('You Dont Have this subject','')">Introduction to 3D Printing Technology (701ME0C018)</td>
+                  <td onclick="showPopup('You Dont Have this subject','')">Introduction to IT Infrastructure Landscape (7011TOC005)</td>
+                  <td>Management Accounting for Engineers (702TF0C001) (10.00 am - 1.00 pm)</td>
+                </tr>
+                <tr>
+                  <td>Wednesday, 4 December, 2024</td>
+                  <td></td>
+                  <td></td>
+                  <td>Introduction to Cloud Computing and Blockchain Technology (701ITOC007)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Friday, 6 December, 2024</td>
+                  <td colspan="4" onclick="showPopup('Calculus Portion','Unit 1 - Differencial Calculus,Unit 2 - Partial Differenciation,Unit 3 - Integral Calculus,Unit 4 - Multiple Integrals,Unit 5 - Vector Calculus')">Calculus (701BS0C029)</td>
+                </tr>
+                <tr>
+                  <td>Monday, 9 December, 2024</td>
+                  <td>Elements of Biology (701BS0C028)</td>
+                  <td></td>
+                  <td colspan="2">Elements of Biology (701BS0C028)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="popup" class="popup">
+        <h3 id="subjectTitle">Subject Title</h3>
+        <p id="subjectPortion">Subject Portion</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function showPopup(subject, portion) {
+            document.getElementById("subjectTitle").textContent = subject;
+            
+            // Split the portion by commas and join with line breaks
+            const formattedPortion = portion.split(',').join('<br><br>');
+            document.getElementById("subjectPortion").innerHTML = formattedPortion;
+            
+            document.getElementById("popup").style.display = "block";
+        }
+    
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js" defer></script>
+    <script src="login,signup.js"></script>
+    <script src="downloads.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 2%;
+            padding-right: 2%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        span {
+            color: violet;
+        }
+        video {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        nav ul li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 10px 5px;
+        }
+        nav ul li a {
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(59, 25, 194, 0.7);
+            transition: background-color 0.3s;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid white;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+            border: 2px solid rgb(59, 25, 194);
+        }
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 0px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        .container{
+            width: 100%;
+            height: 91.51%;
+            background-color: transparent;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+        .calc{
+            border-radius: 25px;
+            width: 80%;
+            background-color: rgba(165,165,165,0.7);
+            height: 90%;
+            align-items: center;
+            justify-content: center;
+        }
+        .calc h1{
+            background-color: black;
+            border-radius: 25px 25px 0 0;
+            text-align: center;
+            padding: 10px;
+            color: white;
+            font-family: 'Poppins',sans-serif;
+            letter-spacing: 2px;
+            font-size: 40px;
+        }
+        .content {
+            height: 70%;
+            overflow-y: auto;
+            padding: 20px;
+            color: white;
+            font-family: 'Poppins',sans-serif;
+        }
+        .content h2{
+            margin-top: -10px;
+            text-align: center;
+            color: black;
+            font-size: 35px;
+        }
+        .submit{
+            font-weight: 800;
+            letter-spacing: 5px;
+            border: 0;
+            padding: 0;
+            font-family: 'Poppins',sans-serif;
+            font-size: 25px;
+            background: rgb(23, 190, 23);
+            position: absolute;
+            left: 12%;
+            top: 85%;
+            height: 50px;
+            width: 75.5%;
+        }
+        .content input{
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid white;
+            width: 48.5%;
+            height: 40px;
+            margin-left: 10px;
+            padding: 10px;
+            font-size: 20px;
+            margin-bottom: 41px;
+        }
+        .accdetails {
+            position: absolute;
+            right: 2.1%;
+            height: 30px;
+            text-align: center;
+            width: 200px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding-top: 5px;
+            color: black;
+            margin-top: 0.5%;
+            display: none;
+        }
+        .chatbotbutton{
+            position: fixed;
+            top: 92%;
+            right: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .chatbotbutton:hover{
+            transform: scale(1.1);
+        }
+        .chatbotbutton span{
+            position: absolute;
+            top: 20%;
+            right: 7px;
+            font-size: 35px;
+        }
+        #popup {
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+            z-index: 100;
+            width: 700px; 
+            text-align: center; 
+        }
+        #popup h2 {
+            margin-bottom: 15px;
+        }
+        #popup p {
+            margin: 10px 0; 
+        }
+        #popup button {
+            margin-top: 10px; 
+            background: rgb(23, 190, 23);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #popup button:hover {
+            background: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <video src="media/homepagevidbg.mp4" autoplay loop muted></video>
+    <div id="chat" class="chatbot">
+        <header>
+            <h2>Chatbot</h2>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hi, how are you? 👋<br> How may I help you?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Enter a message...." required></textarea>
+            <span class="material-symbols-outlined">send</span>
+        </div>
+    </div>
+    <div class="hero">
+        <nav>
+            <h2 class="logo" style="color: lightblue; font-size: 30px; font-family:Verdana, Geneva, Tahoma, sans-serif; letter-spacing: 2px;">
+                Notes <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">4ALL</span>
+            </h2>
+            <ul>
+                <li><a href="home.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To-Do List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="contact.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </nav>
+        <div id="chatbotbtn" class="chatbotbutton">
+            <span id="button" class="material-symbols-outlined">chat</span>
+        </div>
+        <div class="container">
+            <div class="calc">
+                <h1>Attendance Calculator</h1>
+                <div class="content">
+                    <h2>Subject 1: Management Accounting for Engineers<br></h2>
+                    <input type="number" id="total_classes1" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended1" placeholder="Classes Attended" required>
+                    <h2>Subject 2: Basic Data Structures (Theory)<br></h2>
+                    <input type="number" id="total_classes2" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended2" placeholder="Classes Attended" required>
+                    <h2>Subject 3: Basic Data Structures (LAB) <br></h2>
+                    <input type="number" id="total_classes3" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended3" placeholder="Classes Attended" required>
+                    <h2>Subject 4: Calculus (Theory)<br></h2>
+                    <input type="number" id="total_classes4" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended5" placeholder="Classes Attended" required>
+                    <h2>Subject 5: Calculus(Tutorial)<br></h2>
+                    <input type="number" id="total_classes6" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended6" placeholder="Classes Attended" required>
+                    <h2>Subject 6: Programming For Problem Solving (Theory)<br></h2>
+                    <input type="number" id="total_classes7" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended7" placeholder="Classes Attended" required>
+                    <h2>Subject 7: Programming For Problem Solving (LAB)<br></h2>
+                    <input type="number" id="total_classes8" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended8" placeholder="Classes Attended" required>
+                    <h2>Subject 8: Fundamentals of Website Development (Theory)<br></h2>
+                    <input type="number" id="total_classes9" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended9" placeholder="Classes Attended" required>
+                    <h2>Subject 9: Fundamentals of Website Development (LAB)<br></h2>
+                    <input type="number" id="total_classes10" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended10" placeholder="Classes Attended" required>
+                    <h2>Subject 10: Environmental Science (Theory)<br></h2>
+                    <input type="number" id="total_classes11" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended11" placeholder="Classes Attended" required>
+                    <h2>Subject 11: Environmental Science (Tutorial)<br></h2>
+                    <input type="number" id="total_classes12" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended12" placeholder="Classes Attended" required>
+                    <h2>Subject 12: Engineering  Biology<br></h2>
+                    <input type="number" id="total_classes13" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended13" placeholder="Classes Attended" required>
+                    <h2>Subject 13: Critical Thinking<br></h2>
+                    <input type="number" id="total_classes14" placeholder="Total Classes" required>
+                    <input type="number" id="classes_attended14" placeholder="Classes Attended" required>
+                    <button class="submit" onclick="calculateAttendance()">Calculate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popup">
+        <h2>Attendance Result</h2>
+        <p id="attendance-message"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+    <script>
+        function calculateAttendance() {
+            const results = [];
+            const subjects = [{ name: "Management Accounting for Engineers", total: "total_classes1", attended: "classes_attended1" },
+                { name: "Basic Data Structures (Theory)", total: "total_classes2", attended: "classes_attended2" },
+                { name: "Basic Data Structures (LAB)", total: "total_classes3", attended: "classes_attended3" },
+                { name: "Calculus (Theory)", total: "total_classes4", attended: "classes_attended5" },
+                { name: "Calculus (Tutorial)", total: "total_classes6", attended: "classes_attended6" },
+                { name: "Programming For Problem Solving (Theory)", total: "total_classes7", attended: "classes_attended7" },
+                { name: "Programming For Problem Solving (LAB)", total: "total_classes8", attended: "classes_attended8" },
+                { name: "Fundamentals of Website Development (Theory)", total: "total_classes9", attended: "classes_attended9" },
+                { name: "Fundamentals of Website Development (LAB)", total: "total_classes10", attended: "classes_attended10" },
+                { name: "Environmental Science (Theory)", total: "total_classes11", attended: "classes_attended11" },
+                { name: "Environmental Science (Tutorial)", total: "total_classes12", attended: "classes_attended12" },
+                { name: "Engineering Biology", total: "total_classes13", attended: "classes_attended13" },
+                { name: "Critical Thinking", total: "total_classes14", attended: "classes_attended14" }];
+            subjects.forEach(subject => {
+                const totalClasses = parseInt(document.getElementById(subject.total).value);
+                const classesAttended = parseInt(document.getElementById(subject.attended).value);
+                if (isNaN(totalClasses) || isNaN(classesAttended) || totalClasses === 0) {
+                    results.push(`${subject.name}: Please enter valid numbers.`);
+                    return;
+                }
+                const attendancePercentage = (classesAttended / totalClasses) * 100;
+                const color = attendancePercentage < 80 ? "red" : "black";
+                results.push(`<span style="color: ${color};">${subject.name}: ${attendancePercentage.toFixed(2)}%</span>`);
+            });
+            showResultsPopup(results);
+        }
+        function showResultsPopup(results) {
+            const resultsMessage = results.join('<br>');
+            document.getElementById("attendance-message").innerHTML = resultsMessage;
+            document.getElementById("popup").style.display = "block";
+        }
+        function closePopup() {
+            const subjects = [
+                "total_classes1", "classes_attended1",
+                "total_classes2", "classes_attended2",
+                "total_classes3", "classes_attended3",
+                "total_classes4", "classes_attended5",
+                "total_classes6", "classes_attended6",
+                "total_classes7", "classes_attended7",
+                "total_classes8", "classes_attended8",
+                "total_classes9", "classes_attended9",
+                "total_classes10", "classes_attended10",
+                "total_classes11", "classes_attended11",
+                "total_classes12", "classes_attended12",
+                "total_classes13", "classes_attended13",
+                "total_classes14", "classes_attended14"
+            ];
+            subjects.forEach(subjectId => {
+                document.getElementById(subjectId).value = "";
+            });
+            document.getElementById("popup").style.display = "none";
+        }
+        $(document).ready(function () {
+            $("#chatbotbtn").click(function () {
+                $("#chat").toggle();
+            });
+        });
+    </script>
+</body>
+</html>

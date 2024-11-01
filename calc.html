@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="login,signup.js"></script>
+    <script src="downloads.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 2%;
+            padding-right: 2%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        span {
+            color: violet;
+        }
+        video {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        nav ul li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 10px 5px;
+        }
+        nav ul li a {
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(59, 25, 194, 0.7);
+            transition: background-color 0.3s;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid white;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+            border: 2px solid rgb(59, 25, 194);
+            
+        }
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 0px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        .chatbotbutton{
+            position: fixed;
+            top: 92%;
+            right: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .chatbotbutton:hover{
+            transform: scale(1.1);
+        }
+        .chatbotbutton span{
+            position: absolute;
+            top: 20%;
+            right: 7px;
+            font-size: 35px;
+        }
+        .calc-notes {
+            margin: 50px auto;
+            max-width: 1500px;
+            height: 570px; /* Adjust height as needed */
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;/* Enable scrolling */
+        }
+        .calc-pdfs{
+            overflow-y: auto; 
+            width: 1470px;
+            height: 400px;
+        }
+        .papers{
+            margin-top: 20px;
+            height: 50px;
+            background: rgb(97, 70, 204);
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            border-radius: 15px;
+            transition: transform 0.3 ease;
+            cursor: pointer;
+        }
+        .papers a{
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            transition: color 0.3 ease;
+            padding: 1%;
+            height: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #090909;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: rgba(59, 25, 194, 0.7);
+            color: white;
+        }
+
+        a.download-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            background-color: rgba(59, 25, 194, 0.7);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a.download-link:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+        }
+
+    </style>
+
+</head>
+<body>
+    <video src="media/homepagevidbg.mp4" autoplay loop muted></video>
+    <div id="chat" class="chatbot">
+        <header>
+            <h2>Chatbot</h2>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hi, how are you? 👋<br> How may I help you?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Enter a message...." required></textarea>
+            <span class="material-symbols-outlined">send</span>
+        </div>
+    </div>
+    <div class="hero">
+        <nav>
+            <h2 class="logo" style="color: lightblue; font-size: 30px; font-family:Verdana, Geneva, Tahoma, sans-serif; letter-spacing: 2px;">
+                Notes <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">4ALL</span>
+            </h2>
+            <ul>
+                <li><a href="home.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To-Do List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="contact.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </nav>
+        <div class="calc-notes">
+            <h2 style="margin-bottom: 20px; text-align: center; font-size: 40px;">Calculus Notes</h2>
+            <div class="calc-pdfs">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Description</th>
+                            <th>Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Differencial Calculus</td>
+                            <td>Unit-1 Classwork Porblems</td>
+                            <td><a href="#" class="download-link" onclick="downloadFile('media/unit1_cw.pdf')">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Differencial Calculus</td>
+                            <td>Unit-1 Tutorial Problems</td>
+                            <td><a href="" class="download-link" onclick="downloadFile('media/Unit 1_Revised Tutorial problems.pdf')" on>Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Differencial Calculus</td>
+                            <td>Unit-1 Formula Sheet</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Partial Differenciation</td>
+                            <td>Unit-2 Classwork Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Partial Differenciation</td>
+                            <td>Unit-2 Tutorial Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Integral Calculus</td>
+                            <td>Unit-3 Classwork Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Integral Calculus</td>
+                            <td>Unit-3 Tutorial Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Multiple Integrals</td>
+                            <td>Unit-4 Classwork Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Multiple Integrals</td>
+                            <td>Unit-4 Tutorial Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Vector Calculus</td>
+                            <td>Unit-5 Classwork Problems</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Vector Calculus</td>
+                            <td>Unit-5 Tutorial Problems (1)</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                        <tr>
+                            <td>Vector Calculus</td>
+                            <td>Unit-5 Tutorial Problems (2)</td>
+                            <td><a href="downloads/integrals.pdf" class="download-link">Download File</a></td>
+                        </tr>
+                    </tbody>
+                    </div>
+                </table>
+            </div>
+            <div class="papers">
+                <a href="home.html">M1 , M2 & Final Exam Papers</a>
+            </div>
+        </div>
+        <div id="chatbotbtn" class="chatbotbutton">
+            <span id="button" class="material-symbols-outlined">chat</span>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#chatbotbtn').click(function(){
+                $('#chat').toggle();
+            });
+        });
+    </script>
+    
+</body>
+</html>

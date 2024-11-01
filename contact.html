@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="login,signup.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 2%;
+            padding-right: 2%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        span {
+            color: violet;
+        }
+        video {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        nav ul li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 10px 5px;
+        }
+        nav ul li a {
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(59, 25, 194, 0.7);
+            transition: background-color 0.3s;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid white;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+            border: 2px solid rgb(59, 25, 194);
+            
+        }
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 0px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        .cursor {
+            display: inline-block;
+            width: 15px;
+            height: 60px;
+            background-color: white;
+            animation: blink 0.8s infinite;
+        }
+        .chatbotbutton{
+            position: fixed;
+            top: 92%;
+            right: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .chatbotbutton:hover{
+            transform: scale(1.1);
+        }
+        .chatbotbutton span{
+            position: absolute;
+            top: 20%;
+            right: 7px;
+            font-size: 35px;
+        }
+        .login-box{
+            overflow-y: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 380px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background-color: rgba(165, 165, 165, 0.2);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+            border-radius: 2em;
+        }
+        .login-box h2{
+            margin: 0 0 30px;
+            padding: 0;
+            color: white;
+            text-align: center;
+        }
+        .login-box .user-box{
+            position: relative;
+        }
+        .login-box .user-box input, .login-box .user-box textarea{
+            width: 100%;
+            padding: 10px 0;
+            font-size: 15px;
+            color: white;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid white;
+            outline: none;
+            background-color: transparent;
+        }
+        .login-box .user-box label{
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: white;
+            pointer-events: none;
+            transition: 0.5s ease;
+        }
+        .login-box .user-box input:focus ~ label,
+        .login-box .user-box input:valid ~ label,
+        .login-box .user-box textarea:focus ~ label,
+        .login-box .user-box textarea:valid ~ label{
+            top: -20px;
+            left: 0;
+            color: white;
+            font-size: 12px;
+        }
+        .login-box .sub{
+            width: 100%;
+            height: 60px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            padding: 10px 120px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: x-large;
+            color: black;
+            background-color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: 0.5s ease;
+            margin-top: 20px;
+            letter-spacing: 5px;
+            border: 2px solid wheat;
+        }
+        .login-box .signup{
+            color: white;
+            font-size: 14px;
+            margin-left: 40%;
+        }
+        .login-box form a:hover{
+            background-color: transparent;
+            color: white;
+        }
+        .remember{
+            color: white;
+            font-size: 17px;
+        }
+    </style>
+
+</head>
+<body>
+    <video src="media/videobg.mp4" autoplay loop muted></video>
+    <div id="chat" class="chatbot">
+        <header>
+            <h2>Chatbot</h2>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hi, how are you? 👋<br> How may I help you?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Enter a message...." required></textarea>
+            <span class="material-symbols-outlined">send</span>
+        </div>
+    </div>
+    <div class="hero">
+        <nav>
+            <h2 class="logo" style="color: lightblue; font-size: 30px; font-family:Verdana, Geneva, Tahoma, sans-serif; letter-spacing: 2px;">
+                Notes <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">4ALL</span>
+            </h2>
+            <ul>
+                <li><a href="home.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To-Do List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="contact.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </nav>
+        <div class="login-box">
+            <form action="submit">
+                <div class="user-box">
+                    <input type="text" id="name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="user-box">
+                    <input type="email" id="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="user-box">
+                    <textarea id="problem" rows="1" required></textarea>
+                    <label for="problem">What problem are you facing?</label>
+                </div>
+                <a class="sub" href="home.html" onclick="return validate()">Submit</a>
+            </form>
+        </div>
+        <div id="chatbotbtn" class="chatbotbutton">
+            <span id="button" class="material-symbols-outlined">chat</span>
+        </div>
+    </div>
+
+    <script>
+        function validate() {
+        let username = document.getElementById('email').value;
+
+        let usernameregex = /^[A-Za-z0-9_.]+@[A-Za-z]+\.[a-z]{2,6}$/;
+        if (!usernameregex.test(username)) {
+            alert("Enter Valid Email ID ");
+            return false;
+        }
+        let passwordregex = /^[A-Za-z0-9_.%$#&@]{4,}$/;
+        if (!passwordregex.test(password)) {
+            alert("Enter Valid Password ");
+            return false;
+        }
+
+        if (localStorage.getItem(username) !== password) {
+            alert("Invalid Username Or Password");
+            return false;
+        }
+        alert("Login successful!");
+        user=username;
+        pass=password;
+        return true;
+        }
+        $(document).ready(function(){
+            $('#chatbotbtn').click(function(){
+                $('#chat').toggle();
+            });
+        });
+    </script>
+    
+</body>
+</html>

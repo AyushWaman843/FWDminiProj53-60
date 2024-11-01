@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-850px">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        video {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .heading{
+            color: white;
+            font-size: 30px ;
+            padding: 0;
+            margin-top: 0;
+            text-align: center;
+        }
+        .heading h1{
+            padding: 0;
+            margin-top: 15px;
+        }
+        .tt{
+            margin-top: -10px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 700px;
+            margin-bottom: 0px;
+            
+        }
+        table tr th{
+            background-color: rgba(0,0,0,0.3);
+        }
+        table {
+            border: 1px solid white;
+            color: white;
+            border-collapse: collapse; 
+            margin-bottom: 0;
+        }
+        .greys {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+        }
+        th, td {
+            width: calc(100% / 13);
+            text-align: center;
+            border: 1px solid white; 
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        th:hover {
+            transform: scale(1.1);
+            background-color: white;
+            color: black;
+            border: 1px solid #111;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 2%;
+            padding-right: 2%;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        span {
+            color: violet;
+        }
+
+        nav ul li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 10px 5px;
+        }
+        nav ul li a {
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(59, 25, 194, 0.7);
+            transition: background-color 0.3s;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid white;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+            border: 2px solid rgb(59, 25, 194);
+            
+        }
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 0px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        .accdetails {
+            position: absolute;
+            right: 2.1%;
+            height: 30px;
+            text-align: center;
+            width: 200px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding-top: 5px;
+            color: black;
+            margin-top: 0.5%;
+            display: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <video src="media/homepagevidbg.mp4" autoplay loop muted></video>
+    <div class="hero">
+        <nav>
+            <h2 class="logo" style=" font-size: 30px; font-family:Verdana, Geneva, Tahoma, sans-serif; letter-spacing: 2px;">
+                <a href="home.html" style="text-decoration: none; color: lightblue;">Notes <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">4ALL</span></a>
+            </h2>
+            <ul>
+                <li><a href="home.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="studytt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Study-TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </nav>
+        <div class="tt">
+            <table border="1" cellspacing="0" cellpadding="15">
+                <tr>
+                    <th colspan="14" bgcolor="transparent">TIMETABLE</th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">TIME-DAY</th>
+                    <th colspan="2" bgcolor="blue">MONDAY</th>
+                    <th colspan="2" bgcolor="white">TUESDAY</th>
+                    <th colspan="2" bgcolor="white">WEDNESDAY</th>
+                    <th colspan="2" bgcolor="white">THURSDAY</th>
+                    <th colspan="2" bgcolor="white">FRIDAY</th>
+                    <th colspan="2" bgcolor="white">SATURDAY</th>
+                    <th bgcolor="white">SUNDAY</th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">8-9am</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('BDS-B1', 'Lecture in CL-404' ,'Prof.Khushbu Chauhan')">BDS-B1<br>CL-404</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('PPS-B2', 'Lecture in CL-402' ,'Prof.Krishna Samdani')">PPS-B2<br>CL-402</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('FWD', 'Lecture in CR-401' ,'Prof.Rojal Rodriguez')">FWD<br>CR-401</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('PPS-B1', 'Lecture in CL-404' ,'Prof.Krishna Samdani')">PPS-B1<br>CL-404</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('FWD-B2', 'Lecture in CL-403' ,'Prof.Ganesh Bhagvat')">FWD-B2<br>CL-403</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('BDS-B1', 'Lecture in CL-705' ,'Prof.Krishna Samdani')">PPS-B1<br>CL-705</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('FWD-B2', 'Lecture in CL-404' ,'Prof.Ganesh Bhagvat')">FWD-B2<br>CL-404</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('Calculus', 'Lecture in CR-403' ,'Prof.Minirani')">CAL<br>CR-403</th>
+                    <th bgcolor="white" onclick="showLectureDetails('', '' ,'Nothing For Now')"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">9-10am</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('FWD', 'Lecture in CR-401' ,'Prof.Rojal Rodriguez')">FWD<br>CR-401</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('BDS', 'Lecture in CR-401' ,'Prof.Khushbu Chauhan')">BDS<br>CR-401</th>
+                    <th bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">10-11am</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('PPS', 'Lecture in CR-401' ,'Prof.Payal Mishra')">PPS<br>CR-401</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('PPS-B2', 'Lecture in CL-705' ,'Prof.Krishna Samdani')">PPS-B2<br>CL-705</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('FWD-B1', 'Lecture in CL-404' ,'Prof.Rojal Rodriguez')">FWD-B1<br>CL-404</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('BDS-B2', 'Lecture in CL-403' ,'Prof.Khushbu Chauhan')">BDS-B2<br>CL-403</th>
+                    <th rowspan="2" class="greys" bgcolor="grey" onclick="showLectureDetails('FWD-B1', 'Lecture in CL-404' ,'Prof.Rojal Rodriguez')">FWD-B1<br>CL-404</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('PPS', 'Lecture in CR-306' ,'Prof.Payal Mishra')">PPS<br>CR-306</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('Calculus', 'Lecture in CR-403' ,'Prof.Minirani')">CAL<br>CR-403</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('Critical Thinking', 'Lecture in CR-403' ,'Prof.idkbrosname')">CT<br>CR-403</th>
+                    <th bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">11-12pm</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('BDS', 'Lecture in CR-401' ,'Prof.Khushbu Chauhan')">BDS<br>CR-401</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'BREAK')">BREAK</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('Critical Thinking', 'Lecture in CR-403' ,'Prof.idkbrosname')">CT<br>CR-403</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">12-1pm</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'BREAK')">BREAK</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'BREAK')">BREAK</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'BREAK')">BREAK</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('Calculus', 'Lecture in CR-401' ,'Prof.Minirani')">CAL<br>CR-401</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'BREAK')">BREAK</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">1-2pm</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('EOB', 'Lecture in CR-307' ,'Prof.Bhakti Bapat')">EOB<br>CR-307</th>
+                    <th colspan="2" rowspan="2" bgcolor="white" onclick="showLectureDetails('EOB', 'Lecture in CR-307' ,'Prof.Bhakti Bapat')">EOB<br>CR-403</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('BDS', 'Lecture in CR-401' ,'Prof.Khushbu Chauhan')">BDS<br>CR-401</th>
+                    <th bgcolor="grey" class="greys" onclick="showLectureDetails('Calculus-B1', 'Lecture in CR-407' ,'Prof.Minirani')">CAL-B1<br>CR-407</th>
+                    <th bgcolor="grey" class="greys" onclick="showLectureDetails('EVS-B2', 'Lecture in CR-401' ,'Prof.Preeti Shrivastava')">ES-B2<br>CR-401</th>
+                    <th colspan="2" bgcolor="grey" class="greys" onclick="showLectureDetails('Calculus-B2', 'Lecture in CR-306' ,'Prof.Minirani')">CAL-B2<br>CR-306</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">2-3pm</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('EVS', 'Lecture in CR-307' ,'Prof.Preeti Shrivastava')">ES<br>CR-307</th>
+                    <th colspan="2" rowspan="2" bgcolor="white" onclick="showLectureDetails('MAE', 'Lecture in CR-407' ,'Prof.Sanjay Kumar')">MAE<br>CR-307</th>
+                    <th colspan="2" bgcolor="grey" onclick="showLectureDetails('EVS-B2', 'Lecture in CR-401' ,'Prof.Preeti Shrivastava')">ES-B1<br>CR-401</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th bgcolor="white"></th>
+                </tr>
+                <tr>
+                    <th bgcolor="white">3-4pm</th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                    <th colspan="2" bgcolor="white" onclick="showLectureDetails('', '' ,'NOTHING FOR NOW')"></th>
+                </tr>
+            </table>
+            <div id="lectureModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h3 id="lectureTitle"></h3>
+                    <p id = "profDetails"></p>
+                    <p id="lectureDetails"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showLectureDetails(title, details , prof) {
+            console.log("Modal triggered for:", title); 
+            document.getElementById("lectureTitle").textContent = title;
+            document.getElementById("profDetails").textContent = prof;
+            document.getElementById("lectureDetails").textContent = details;
+            document.getElementById("lectureModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("lectureModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>

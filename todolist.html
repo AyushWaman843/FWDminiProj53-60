@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="login,signup.js"></script>
+    <script src="downloads.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 2%;
+            padding-right: 2%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        span {
+            color: violet;
+        }
+        video {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        nav ul li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 10px 5px;
+        }
+        nav ul li a {
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(59, 25, 194, 0.7);
+            transition: background-color 0.3s;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid white;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: rgb(59, 25, 194);
+            border: 2px solid rgb(59, 25, 194);
+            
+        }
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 0px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        .cursor {
+            display: inline-block;
+            width: 15px;
+            height: 60px;
+            background-color: white;
+            animation: blink 0.8s infinite;
+        }
+        .chatbotbutton{
+            position: fixed;
+            top: 92%;
+            right: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .chatbotbutton:hover{
+            transform: scale(1.1);
+        }
+        .chatbotbutton span{
+            position: absolute;
+            top: 20%;
+            right: 7px;
+            font-size: 35px;
+        }
+        .todolistmain{
+            width: 100%;
+            height: 80%;
+            background-color:transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            background-color: #ffffff;
+            flex-wrap:wrap; 
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: center;
+            border: 2px solid blue;
+        }
+        
+        h1 {
+            margin-top: 3px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p.description {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .input-area {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        #todo-input , #deadline-input {
+            width: 70%;
+            padding: 8px;
+            
+            border: 2px solid #007bff;
+            border-radius: 6px;
+            outline: none;
+            transition: 0.3s;
+        }
+        #deadline-input {
+            margin-left: 5px;
+        }
+        
+        #todo-input:focus {
+            border-color: #0056b3;
+        }
+        
+        #add-btn {
+            margin-left: 5px;
+            width: 25%;
+            background-color: #500ce3;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+        
+        #add-btn:hover {
+            background-color: #1f0557;
+            transform: scale(1.05);
+        }
+        
+        .container ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .container li {
+            background-color: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .container li:hover {
+            transform: scale(1.03);
+        }
+        
+        .delete-btn {
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+
+</head>
+<body>
+    <video src="media/homepagevidbg.mp4" autoplay loop muted></video>
+    <div id="chat" class="chatbot">
+        <header>
+            <h2>Chatbot</h2>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hi, how are you? 👋<br> How may I help you?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Enter a message...." required></textarea>
+            <span class="material-symbols-outlined">send</span>
+        </div>
+    </div>
+    <div class="hero">
+        <nav>
+            <h2 class="logo" style="color: lightblue; font-size: 30px; font-family:Verdana, Geneva, Tahoma, sans-serif; letter-spacing: 2px;">
+                Notes <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">4ALL</span>
+            </h2>
+            <ul>
+                <li><a href="home.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Study-TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="contact.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </nav>
+        <div class="todolistmain">
+            <div class="container">
+                <h1>My To-Do List</h1>
+                <p class="description">Keep track of your tasks and stay organized by adding and managing your to-do items below.</p>
+                <div class="input-area">
+                  <input type="text" id="todo-input" placeholder="Add a new task...">
+                  <input type="date" id="deadline-input" placeholder="Deadline">
+                  <button id="add-btn">Add</button>
+                </div>
+                <ul id="todo-list"></ul>
+              </div>
+              <audio id="ting-sound" src="media/ting.mp3" preload="auto"></audio>
+        </div>
+        <div id="chatbotbtn" class="chatbotbutton">
+            <span id="button" class="material-symbols-outlined">chat</span>
+        </div>
+    </div>
+
+    <script>
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach(task => addTaskToDOM(task));
+        }
+
+        function addTaskToDOM(task) {
+            const list = document.getElementById('todo-list');
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${task.name} 
+                <div class="deadline">Deadline: ${task.deadline || 'No deadline'}</div>
+                <button class="delete-btn">Delete</button>
+            `;
+
+            list.appendChild(li);
+            li.querySelector('.delete-btn').addEventListener('click', () => {
+                li.remove();
+                deleteTaskFromStorage(task);
+            });
+        }
+
+        function saveTaskToStorage(task) {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function deleteTaskFromStorage(task) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks = tasks.filter(t => t.name !== task.name || t.deadline !== task.deadline);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function playSound() {
+            const audio = document.getElementById('ting-sound');
+            audio.play();
+        }
+
+        document.getElementById('add-btn').addEventListener('click', () => {
+            const taskInput = document.getElementById('todo-input');
+            const deadlineInput = document.getElementById('deadline-input');
+            const taskName = taskInput.value.trim();
+            const taskDeadline = deadlineInput.value;
+
+            if (taskName) {
+                const task = { name: taskName, deadline: taskDeadline };
+                addTaskToDOM(task);
+                saveTaskToStorage(task);
+                playSound();
+                taskInput.value = '';
+                deadlineInput.value = '';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', loadTasks);
+
+        $(document).ready(function() {
+            $('#chatbotbtn').click(function() {
+                $('#chat').toggle();
+            });
+        });
+    </script>
+    
+</body>
+</html>
