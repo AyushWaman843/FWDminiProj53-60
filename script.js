@@ -2,7 +2,7 @@ const ChatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
 const chatbox = document.querySelector(".chatbox");
 
-// Expanded responses for a variety of keywords nboofdbnbd
+// Expanded responses for a variety of keywords
 const responses = {
     "holidays":["vacations start","vacations","holidays"],
     "greetings": ["hello", "hi", "hey", "what's up", "howdy", "how are u?", "How are you?", "how u?", "how you?"],
