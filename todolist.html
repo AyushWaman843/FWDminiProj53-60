@@ -119,7 +119,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            width: 500px;
+            width: 1300px;
             max-height: 400px;
             overflow-y: auto;
             text-align: center;
@@ -142,7 +142,64 @@
             justify-content: space-between;
             margin-bottom: 20px;
         }
-        
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: 1px solid black;
+            position: absolute;
+            top: 0%;
+            left: 5%;
+            background-color: #fefefe;
+            margin: 15%; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%; /* Could be more or less, depending on screen size */
+        }
+
+        .modal-content ul {
+            overflow-y: auto;
+            max-height: 300px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-content li {
+            margin: 20px;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content li:hover {
+            background-color: #ddd;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+                
         #todo-input , #deadline-input {
             width: 70%;
             padding: 8px;
@@ -210,6 +267,29 @@
         .delete-btn:hover {
             background-color: #cc0000;
         }
+        #subject-btn {
+            margin-left: 5px;
+            width: 30%; /* Adjust width as necessary */
+            background-color: #0c66e3; /* Change background color */
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            font-size: 16px; /* Make text larger */
+        }
+
+        #subject-btn:hover {
+            background-color: #1f0557;
+            transform: scale(1.05);
+        }
+        #confirm-btn{
+            margin-top: 10px;
+            width: 96%;
+            background-color: rgb(59, 25, 194);
+            color: white;
+        }
     </style>
 
 </head>
@@ -240,7 +320,7 @@
                 <li><a href="tt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeTable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li><a href="examtt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exam TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li><a href="attendance.html">&nbsp;&nbsp;&nbsp;Attendance Calc&nbsp;&nbsp;&nbsp;</a></li>
-                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Study-TT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="todolist.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To-Do List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li><a href="contact.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </nav>
@@ -249,10 +329,29 @@
                 <h1>My To-Do List</h1>
                 <p class="description">Keep track of your tasks and stay organized by adding and managing your to-do items below.</p>
                 <div class="input-area">
-                  <input type="text" id="todo-input" placeholder="Add a new task...">
-                  <input type="date" id="deadline-input" placeholder="Deadline">
-                  <button id="add-btn">Add</button>
+                    <input type="text" id="todo-input" placeholder="Add a new task...">
+                    <input type="date" id="deadline-input" placeholder="Deadline">
+                    <button id="subject-btn">Select Subject</button>
+                    <button id="add-btn">Add</button>
                 </div>
+                <div id="subject-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Select a Subject</h2>
+                        <ul id="subject-list">
+                            <li data-subject="Math">PPS</li>
+                            <li data-subject="Science">BDS</li>
+                            <li data-subject="History">Calculus</li>
+                            <li data-subject="English">EOB</li>
+                            <li data-subject="Web Designing">FWD</li>
+                            <li data-subject="Evn Science">EVS</li>
+                            <li data-subject="Critical Thinking">CT</li>
+                            <li data-subject="Management Accounting">MAE</li>
+                        </ul>
+                        <button id="confirm-btn">Confirm</button>
+                    </div>
+                </div>
+                
                 <ul id="todo-list"></ul>
               </div>
               <audio id="ting-sound" src="media/ting.mp3" preload="auto"></audio>
@@ -263,17 +362,77 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        loadTasks();
+
+        // Modal Elements
+        const subjectModal = document.getElementById('subject-modal');
+        const closeModal = document.querySelector('.close');
+        const subjectList = document.getElementById('subject-list');
+        const confirmBtn = document.getElementById('confirm-btn');
+        const subjectBtn = document.getElementById('subject-btn');
+        let selectedSubjects = [];
+
+        // Open Subject Modal
+        subjectBtn.addEventListener('click', () => {
+            subjectModal.style.display = "block";
+        });
+
+        // Close Modal
+        closeModal.onclick = () => {
+            subjectModal.style.display = "none";
+        };
+
+        // Select Subject
+        subjectList.querySelectorAll('li').forEach(subject => {
+            subject.addEventListener('click', () => {
+                const subjectName = subject.dataset.subject;
+                if (!selectedSubjects.includes(subjectName)) {
+                    selectedSubjects.push(subjectName);
+                    subject.style.backgroundColor = '#cce5ff'; // Highlight selected subject
+                } else {
+                    selectedSubjects = selectedSubjects.filter(item => item !== subjectName);
+                    subject.style.backgroundColor = ''; // Remove highlight
+                }
+            });
+        });
+
+        // Confirm Subject Selection
+        confirmBtn.addEventListener('click', () => {
+            subjectModal.style.display = "none";
+        });
+
+        // Add Task
+        document.getElementById('add-btn').addEventListener('click', () => {
+            const taskName = document.getElementById('todo-input').value;
+            const deadline = document.getElementById('deadline-input').value;
+
+            if (taskName) {
+                const task = { name: taskName, deadline: deadline, subjects: [...selectedSubjects] };
+                addTaskToDOM(task);
+                saveTaskToStorage(task);
+                document.getElementById('todo-input').value = '';
+                document.getElementById('deadline-input').value = '';
+                selectedSubjects = []; // Reset subjects after adding task
+            } else {
+                alert("Please enter a task name!");
+            }
+        });
+
+        // Load Tasks from Local Storage
         function loadTasks() {
             const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
             tasks.forEach(task => addTaskToDOM(task));
         }
 
+        // Add Task to DOM
         function addTaskToDOM(task) {
             const list = document.getElementById('todo-list');
             const li = document.createElement('li');
             li.innerHTML = `
                 ${task.name} 
                 <div class="deadline">Deadline: ${task.deadline || 'No deadline'}</div>
+                <div class="subjects">Subjects: ${task.subjects.join(', ') || 'None'}</div>
                 <button class="delete-btn">Delete</button>
             `;
 
@@ -284,46 +443,28 @@
             });
         }
 
+        // Save Task to Local Storage
         function saveTaskToStorage(task) {
             const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
             tasks.push(task);
             localStorage.setItem('tasks', JSON.stringify(tasks));
+            document.getElementById('ting-sound').play(); // Play sound when a task is added
         }
 
+        // Delete Task from Local Storage
         function deleteTaskFromStorage(task) {
             let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
             tasks = tasks.filter(t => t.name !== task.name || t.deadline !== task.deadline);
             localStorage.setItem('tasks', JSON.stringify(tasks));
         }
 
-        function playSound() {
-            const audio = document.getElementById('ting-sound');
-            audio.play();
-        }
-
-        document.getElementById('add-btn').addEventListener('click', () => {
-            const taskInput = document.getElementById('todo-input');
-            const deadlineInput = document.getElementById('deadline-input');
-            const taskName = taskInput.value.trim();
-            const taskDeadline = deadlineInput.value;
-
-            if (taskName) {
-                const task = { name: taskName, deadline: taskDeadline };
-                addTaskToDOM(task);
-                saveTaskToStorage(task);
-                playSound();
-                taskInput.value = '';
-                deadlineInput.value = '';
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            if (event.target == subjectModal) {
+                subjectModal.style.display = "none";
             }
-        });
-
-        document.addEventListener('DOMContentLoaded', loadTasks);
-
-        $(document).ready(function() {
-            $('#chatbotbtn').click(function() {
-                $('#chat').toggle();
-            });
-        });
+        };
+    });
     </script>
     
 </body>

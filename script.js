@@ -246,3 +246,28 @@ ChatInput.addEventListener("keypress", (e) => {
         handleChat(); 
     }
 });
+
+
+//THIS IS FOR THE POPup
+
+window.onload = function() {
+    function showPopup() {
+        document.getElementById('popup').style.display = 'block'; // Show the popup
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none'; // Hide the popup
+    }
+
+    // Show the popup after 20 seconds
+    setTimeout(showPopup, 20000); 
+
+    // Close button event listener
+    document.getElementById('close-btn').onclick = closePopup;
+
+    // jQuery document ready function to handle the check button click
+    $('#check-btn').click(function(){
+        window.location.href = 'home.html#target-section'; // Redirect to target section
+        closePopup(); // Close the popup
+    });
+};

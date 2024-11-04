@@ -163,7 +163,99 @@
             background-color: rgba(255, 255, 255, 0.8);
             color: rgb(59, 25, 194);
         }
+        .modal {
+            display: none; /* Hidden by default */
+            flex-direction: column; /* Column layout */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+            padding: 20px; /* Padding around the content */
+        }
 
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto; /* Center the modal */
+            padding: 20px;
+            border: 1px solid #888;
+            max-width: 700px; /* Max width for the modal */
+            width: 100%; /* Full width with max-width applied */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto; /* Enable vertical scroll if needed */
+            max-height: 80vh; /* Limit modal height to 80% of the viewport height */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal ul {
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .modal ul li {
+            margin: 10px 0;
+        }
+
+        .modal ul li a {
+            background-color: antiquewhite;
+            text-decoration: none;
+            border-radius: 10px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 35px;
+            padding-right:35px;
+            color: rgb(59, 25, 194);
+            transition: color 0.3s;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal ul li a:hover {
+            background-color: transparent;
+            color: violet;
+        }
+        .modal-content h2{
+            font-size: 35px;
+        }
+        .butn{
+            justify-content: center;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-color: white;
+            top: 17%;
+            left: 2.4%;
+        }
+        .butn p{
+            margin-bottom: 3px;
+            margin-right: 3px;
+            font-size: 50px;
+        }
     </style>
 
 </head>
@@ -275,8 +367,25 @@
                 </table>
             </div>
             <div class="papers">
-                <a href="home.html">M1 , M2 & Final Exam Papers</a>
+                <a href="home.html#target-section">M1 , M2 & Final Exam Papers</a>
             </div>
+        </div>
+        <div id="subjectModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 style="text-align: center; margin-bottom: 20px; margin-top: 0; margin-left: 12px;">Select Subjects</h2>
+                <ul>
+                    <li><a href="pps.html">PPS</a></li>
+                    <li><a href="bds.html">BDS</a></li>
+                    <li><a href="fwd.html">FWD</a></li>
+                    <li><a href="mae.html">MAE</a></li>
+                    <li><a href="evs.html">EVS</a></li>
+                    <li><a href="eob.html">EOB</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="butn" id="menuBtn">
+            <p>≡</p>
         </div>
         <div id="chatbotbtn" class="chatbotbutton">
             <span id="button" class="material-symbols-outlined">chat</span>
@@ -288,7 +397,23 @@
             $('#chatbotbtn').click(function(){
                 $('#chat').toggle();
             });
+        
+            $('#menuBtn').click(function() {
+                $('#subjectModal').fadeIn(); // Show the modal
+            });
+
+            $('.close').click(function() {
+                $('#subjectModal').fadeOut(); // Hide the modal
+            });
+
+            $(window).click(function(event) {
+                if ($(event.target).is('#subjectModal')) {
+                    $('#subjectModal').fadeOut(); // Hide the modal when clicking outside
+                }
+            });
         });
+
+
     </script>
     
 </body>

@@ -4,6 +4,9 @@
     <meta charset="UTF-850px">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TimeTable</title>
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <style>
         body{
             margin: 0;
@@ -151,6 +154,51 @@
             font-size: 28px;
             cursor: pointer;
         }
+        .popup-container {
+            display: none;
+             /* Hidden by default */
+            position: fixed; /* Stay in place */
+            left: 0; /* Align to the left */
+            top: 25%; /* Adjust vertical position */
+            left: 1%;
+            width: 200px;
+            border-radius: 25px;
+            height: auto; /* Set width of the popup */
+            padding: 20px; /* Add padding */
+            background-color: rgba(255, 255, 255, 0.8); /* White background */
+            border: 1px solid #ccc; /* Light border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+        .popup-container h2{
+            margin-top: -10px;
+        }
+
+        .popup-content {
+            text-align: center; /* Center the text */
+        }
+
+        .popup-image {
+            border: 2px solid black;
+            border-radius:15px ;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .popup-container p{
+            margin-top: -5px;
+        }
+
+        #close-btn {
+            background-color: rgb(59, 25, 194);
+            padding-top: 8px;
+            z-index: 1000;
+            padding-bottom: 8px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: -10px; /* Space above the button */
+        }
     </style>
 </head>
 <body>
@@ -274,6 +322,21 @@
             </div>
         </div>
     </div>
+    <div class="popup-container" id="popup">
+        <div class="popup-content">
+            <h2>Check Out Exam Paper Market</h2>
+            <img src="/media/m1calc.jpg" alt="Exam Paper" class="popup-image">
+            <p>Calculus Mid-Term 1 Paper</p>
+            <p style="color: gray;">Subject : Calculus</p>
+            <p style="color: gray;">Paper : Mid-Term 1</p>
+            <button id="close-btn">Close</button>
+            <button id="check-btn" style="background-color: rgb(59, 25, 194);padding-top: 8px;
+            z-index: 1000;
+            padding-bottom: 8px;
+            padding-left: 20px;
+            padding-right: 20px;">Check Out</button>
+        </div>
+    </div>
     <script>
         function showLectureDetails(title, details , prof) {
             console.log("Modal triggered for:", title); 
@@ -282,10 +345,30 @@
             document.getElementById("lectureDetails").textContent = details;
             document.getElementById("lectureModal").style.display = "flex";
         }
-
         function closeModal() {
             document.getElementById("lectureModal").style.display = "none";
         }
+        window.onload = function() {
+            function showPopup() {
+                document.getElementById('popup').style.display = 'block'; // Show the popup
+            }
+
+            function closePopup() {
+                document.getElementById('popup').style.display = 'none'; // Hide the popup
+            }
+
+            // Show the popup after 20 seconds
+            setTimeout(showPopup, 20000); 
+
+            // Close button event listener
+            document.getElementById('close-btn').onclick = closePopup;
+
+            // jQuery document ready function to handle the check button click
+            $('#check-btn').click(function(){
+                window.location.href = 'home.html#target-section'; // Redirect to target section
+                closePopup(); // Close the popup
+            });
+        };
     </script>
 </body>
 </html>

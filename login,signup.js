@@ -1,91 +1,78 @@
-let user="";
-let pass;
-function addacc() {//this is for signing up :)
+function showModal(message, redirect) {
+    document.getElementById("modal-message").textContent = message;
+    document.getElementById("success-modal").style.display = "block";
+
+    // If redirect is true, set up the event listener for the button
+    if (redirect) {
+        document.getElementById("modal-button").onclick = function() {
+            window.location.href = "home.html"; // Change to your target page
+        };
+    }
+}
+
+function closeModal() {
+    document.getElementById("success-modal").style.display = "none";
+}
+
+// Update addacc to call showModal correctly
+function addacc() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
 
     let usernameregex = /^[A-Za-z0-9_.]+@[A-Za-z]+\.[a-z]{2,6}$/;
     if (!usernameregex.test(username)) {
-        alert("Enter Valid Email ID ");
+        showModal("Enter Valid Email ID", false);
         return false;
     }
     let passwordregex = /^[A-Za-z0-9_.%$#&@]{4,}$/;
     if (!passwordregex.test(password)) {
-        alert("Enter Valid Password ");
+        showModal("Enter Valid Password", false);
         return false;
     }
 
     if (localStorage.getItem(username)) {
-        alert("Account Already Exists");
+        showModal("Account Already Exists", false);
         return false;
     } else {
         localStorage.setItem(username, password);
-        alert("Account created successfully!");
+        showModal("Account created successfully!", true); // Pass true to redirect
         return true;
     }
-    return true;
 }
 
-function validate() {//this is for the login :)
+// Update validate to call showModal correctly
+function validate() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
 
     let usernameregex = /^[A-Za-z0-9_.]+@[A-Za-z]+\.[a-z]{2,6}$/;
-    if (!usernameregex.test(username)) {
-        alert("Enter Valid Email ID ");
-        return false;
-    }
     let passwordregex = /^[A-Za-z0-9_.%$#&@]{4,}$/;
+
+    // Check if username is valid
+    if (!usernameregex.test(username)) {
+        alert("Incorrect Email Or Password");
+        return false;
+    }
+
+    // Check if password is valid
     if (!passwordregex.test(password)) {
-        alert("Enter Valid Password ");
+        alert("Incorrect Email Or Password");
         return false;
     }
 
+    // Validate login credentials
     if (localStorage.getItem(username) !== password) {
-        alert("Invalid Username Or Password");
+        alert("Incorrect Email Or Password");
         return false;
     }
-    alert("Login successful!");
-    user=username;
-    pass=password;
-    return true;
+
+    // If all validations pass, show the success modal
+    showModal("Login successful!", true); // Pass true to redirect
+    return false; // Prevent form submission
 }
 
-list=['hi','hello','nah'];
-let textindex=0;
-let charindex=0;
-let currenttext="";
-let deletetext = false;
-const delaybetween = 1000;
-const typespeed = 100;
-const backspacespeed=100;
-
-function typetext()
-{
-    const dynamictext = document.getElementById("dynamic-text");
-
-    if(deletetext){
-        currenttext=list[textindex].substring(0,charindex-1);
-        charindex--;
-    }
-    else{
-        currenttext=list[textindex].substring(0,charindex+1);
-        charindex++;
-    }
-
-    dynamicTextElement.innerHTML=currenttext;
-
-    if(!deletetext && charindex === list[textindex].length){
-        deletetext=true;
-        setTimeout(typetext,delaybetween);
-    }
-    else if(deletetext && charindex === 0){
-        deletetext=false;
-        setTimeout(typetext,typespeed);
-    }
-    else{
-        speed = deletetext ? typespeed : backspacespeed;
-        setTimeout(typetext,speed);
-    }
-}
-
+// Prevent default form submission
+document.getElementById('submit-button').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default action of the form submission
+    validate(); // Call validate function
+});

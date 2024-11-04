@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Paper Search</title>
+    <style>
+        /* General Reset and Font */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            background-color: #eef2f5;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Search Bar Styling */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem auto;
+            max-width: 800px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 70%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search-bar button {
+            padding: 0.75rem;
+            font-size: 1rem;
+            background-color: #e67e22;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #d35400;
+        }
+
+        /* Filter Section Styling */
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem auto;
+        }
+
+        .filters select {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        /* Container for Papers */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem;
+            gap: 2rem; /* Adjust spacing between cards */
+        }
+
+        /* Paper Card Styling */
+        .paper-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 220px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .paper-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .paper-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .paper-card p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .paper-card .button {
+            padding: 0.5rem;
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .paper-card .button:hover {
+            background-color: #3498db;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #4a90e2;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        .popup-container {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            left: 0; /* Align to the left */
+            top: 20%; /* Adjust vertical position */
+            width: 300px; /* Set width of the popup */
+            padding: 20px; /* Add padding */
+            background-color: #fff; /* White background */
+            border: 1px solid #ccc; /* Light border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+
+        .popup-content {
+            text-align: center; /* Center the text */
+        }
+
+        .popup-image {
+            width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        #close-btn {
+            margin-top: 10px; /* Space above the button */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Exam Papers Marketplace</h1>
+        <p>Find and download past exam papers with ease!</p>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" id="search-bar" placeholder="Search for exam papers..." aria-label="Search papers">
+        <button id="search-button" type="button">Search</button>
+    </div>
+
+    <div class="filters">
+        <select id="subject" aria-label="Select Subject">
+            <option value="">Select Subject</option>
+            <option value="PPS">PPS</option>
+            <option value="BDS">BDS</option>
+            <option value="CAL">CAL</option>
+            <option value="FWD">FWD</option>
+            <option value="EOB">EOB</option>
+            <option value="EVS">EVS</option>
+            <option value="MAE">MAE</option>
+        </select>
+        <select id="type" aria-label="Select Exam Type">
+            <option value="">Select Exam Type</option>
+            <option value="Mid-Term 1">Mid-Term 1</option>
+            <option value="Mid-Term 2">Mid-Term 2</option>
+            <option value="Term-End Paper">Term-End Paper</option>
+        </select>
+    </div>
+
+    <div class="container" id="papers-grid">
+        <!-- Paper Cards will be dynamically inserted here -->
+    </div>
+    <div class="popup-container" id="popup">
+        <div class="popup-content">
+            <h2>Check Out Exam Paper Market</h2>
+            <img src="exam-paper-image.jpg" alt="Exam Paper" class="popup-image">
+            <p>This section represents the paper for specific subjects. Explore various papers to enhance your preparation!</p>
+            <button id="close-btn">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Exam Papers Marketplace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            setTimeout(showPopup, 30000); // Show the popup
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none'; // Hide the popup
+        }
+        setTimeout(showPopup, 10000); 
+
+        // Automatically show the popup after 3 seconds (3000 milliseconds)
+
+        // Close the popup when the close button is clicked
+        document.getElementById('close-btn').onclick = closePopup;
+        const papers = [
+            { title: "PPS Mid-Term 1 Paper", subject: "PPS", type: "Mid-Term 1", image: "media/m1calc.jpg" },
+            { title: "PPS Mid-Term 1 Paper", subject: "PPS", type: "Mid-Term 2", image: "media/m1calc.jpg" },
+            { title: "PPS Term-End Paper", subject: "PPS", type: "Term-End Paper", image: "media/m1calc.jpg" },
+            { title: "BDS Mid-Term 1 Paper", subject: "BDS", type: "Mid-Term 1", image: "media/m1calc1.jpg" },
+            { title: "BDS Mid-Term 2 Paper", subject: "BDS", type: "Mid-Term 2", image: "media/m1calc1.jpg" },
+            { title: "BDS Term-End Paper", subject: "BDS", type: "Term-End Paper", image: "media/m1calc1.jpg" },
+            { title: "CAL Mid-Term 1", subject: "CAL", type: "Mid-Term 1", image: "media/m1calc1.jpg" },
+            { title: "CAL Mid-Term 2", subject: "CAL", type: "Mid-Term 2", image: "media/m1calc1.jpg" },
+            { title: "CAL Term-End Paper", subject: "CAL", type: "Term-End Paper", image: "media/m1calc1.jpg" },
+            { title: "FWD Mid-Term 1 Paper", subject: "FWD", type: "Mid-Term 1", image: "media/m1calc1.jpg" },
+            { title: "FWD Mid-Term 2 Paper", subject: "FWD", type: "Mid-Term 2", image: "media/m1calc1.jpg" },
+            { title: "FWD Term-End Paper", subject: "FWD", type: "Term-End Paper", image: "media/m1calc1.jpg" },
+            { title: "EOB Mid-Term 2 Paper", subject: "EOB", type: "Mid-Term 2", image: "media/m1calc1.jpg" },
+            { title: "EVS Term-End Paper", subject: "EVS", type: "Term-End Paper", image: "media/m1calc1.jpg" },
+            { title: "MAE Mid-Term 1 Paper", subject: "MAE", type: "Mid-Term 1", image: "media/m1calc1.jpg" },
+            
+            // Add more papers if needed
+        ];
+
+        function displayPapers(filteredPapers) {
+            const papersGrid = document.getElementById("papers-grid");
+            papersGrid.innerHTML = ""; // Clear previous results
+
+            // Ensure at least 6 items are displayed with placeholders if needed
+            let papersToDisplay = filteredPapers.length >= 6 ? filteredPapers : [
+                ...filteredPapers,
+                ...Array.from({ length: 6 - filteredPapers.length }, (_, i) => ({
+                    title: `Placeholder Paper ${i + 1}`,
+                    subject: "Placeholder",
+                    type: "Sample Type",
+                    image: "path/to/placeholder.jpg" // Placeholder image path
+                }))
+            ];
+
+            papersToDisplay.forEach(paper => {
+                const paperCard = document.createElement("div");
+                paperCard.classList.add("paper-card");
+                
+                paperCard.innerHTML = `
+                    <img src="${paper.image}" alt="${paper.title}">
+                    <h3>${paper.title}</h3>
+                    <p>Subject: ${paper.subject}</p>
+                    <p>Type: ${paper.type}</p>
+                    <button class="button">Download</button>
+                `;
+
+                papersGrid.appendChild(paperCard);
+            });
+        }
+
+        function applyFilters() {
+            const searchQuery = document.getElementById("search-bar").value.toLowerCase();
+            const subjectFilter = document.getElementById("subject").value;
+            const typeFilter = document.getElementById("type").value;
+
+            const filteredPapers = papers.filter(paper => {
+                const matchesSearch = paper.title.toLowerCase().includes(searchQuery);
+                const matchesSubject = subjectFilter ? paper.subject === subjectFilter : true;
+                const matchesType = typeFilter ? paper.type === typeFilter : true;
+                return matchesSearch && matchesSubject && matchesType;
+            });
+
+            displayPapers(filteredPapers);
+        }
+
+        document.getElementById("search-button").addEventListener("click", applyFilters);
+        document.getElementById("subject").addEventListener("change", applyFilters);
+        document.getElementById("type").addEventListener("change", applyFilters);
+
+        // Initial display of all papers
+        displayPapers(papers);
+    </script>
+</body>
+</html>

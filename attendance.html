@@ -174,7 +174,7 @@
             right: 7px;
             font-size: 35px;
         }
-        #popup {
+        #popup1 {
             display: none; 
             position: fixed; 
             top: 50%; 
@@ -188,13 +188,13 @@
             width: 700px; 
             text-align: center; 
         }
-        #popup h2 {
+        #popup1 h2 {
             margin-bottom: 15px;
         }
-        #popup p {
+        #popup1 p {
             margin: 10px 0; 
         }
-        #popup button {
+        #popup1 button {
             margin-top: 10px; 
             background: rgb(23, 190, 23);
             color: white;
@@ -203,8 +203,52 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        #popup button:hover {
+        #popup1 button:hover {
             background: darkgreen;
+        }
+        .popup-container {
+            display: none;
+            position: fixed; /* Stay in place */
+            left: 0; /* Align to the left */
+            top: 25%; /* Adjust vertical position */
+            left: 1%;
+            width: 280px;
+            border-radius: 25px;
+            height: auto; /* Set width of the popup */
+            padding: 20px; /* Add padding */
+            background-color: rgba(255, 255, 255, 0.8); /* White background */
+            border: 1px solid #ccc; /* Light border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+        .popup-container h2{
+            margin-top: -10px;
+        }
+
+        .popup-content {
+            text-align: center; /* Center the text */
+        }
+
+        .popup-image {
+            border: 2px solid black;
+            border-radius:15px ;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .popup-container p{
+            margin-top: 5px;
+        }
+
+        #close-btn {
+            background-color: rgb(59, 25, 194);
+            padding-top: 8px;
+            z-index: 1000;
+            padding-bottom: 8px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -290,10 +334,25 @@
             </div>
         </div>
     </div>
-    <div id="popup">
+    <div id="popup1">
         <h2>Attendance Result</h2>
         <p id="attendance-message"></p>
         <button onclick="closePopup()">Close</button>
+    </div>
+    <div class="popup-container" id="popup">
+        <div class="popup-content">
+            <h2>Check Out Exam Paper Market</h2>
+            <img src="/media/m1calc.jpg" alt="Exam Paper" class="popup-image">
+            <p>Calculus Mid-Term 1 Paper</p>
+            <p style="color: gray;">Subject : Calculus</p>
+            <p style="color: gray;">Paper : Mid-Term 1</p>
+            <button id="close-btn">Close</button>
+            <button id="check-btn" style="background-color: rgb(59, 25, 194);padding-top: 8px;
+            z-index: 1000;
+            padding-bottom: 8px;
+            padding-left: 20px;
+            padding-right: 20px;">Check Out</button>
+        </div>
     </div>
     <script>
         function calculateAttendance() {
@@ -327,7 +386,7 @@
         function showResultsPopup(results) {
             const resultsMessage = results.join('<br>');
             document.getElementById("attendance-message").innerHTML = resultsMessage;
-            document.getElementById("popup").style.display = "block";
+            document.getElementById("popup1").style.display = "block";
         }
         function closePopup() {
             const subjects = [
@@ -348,13 +407,35 @@
             subjects.forEach(subjectId => {
                 document.getElementById(subjectId).value = "";
             });
-            document.getElementById("popup").style.display = "none";
+            document.getElementById("popup1").style.display = "none";
         }
         $(document).ready(function () {
             $("#chatbotbtn").click(function () {
                 $("#chat").toggle();
             });
         });
+
+        window.onload = function() {
+            function ShowPopup() {
+                document.getElementById('popup1').style.display = 'block'; // Show the popup
+            }
+
+            function ClosePopup() {
+                document.getElementById('popup1').style.display = 'none'; // Hide the popup
+            }
+
+            // Show the popup after 20 seconds
+            setTimeout(ShowPopup, 20000); 
+
+            // Close button event listener
+            document.getElementById('close-btn').onclick = ClosePopup;
+
+            // jQuery document ready function to handle the check button click
+            $('#check-btn').click(function(){
+                window.location.href = 'home.html#target-section'; // Redirect to target section
+                ClosePopup(); // Close the popup
+            });
+        };
     </script>
 </body>
 </html>

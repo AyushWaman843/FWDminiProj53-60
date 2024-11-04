@@ -104,7 +104,54 @@
             color: white;
             font-size: 17px;
         }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background with opacity */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
+        .modal-content {
+            background-color: white; /* Modal content background */
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888; 
+            width: 80%; 
+            max-width: 400px; 
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #modal-button {
+            margin-top: 30px;
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
     </style>
 </head>
@@ -124,8 +171,15 @@
                 <input type="checkbox">Remember Me
                 <a class="login" href="login.html">Login ?</a>
             </div>
-            <a class="sub" href="login.html" onclick="return addacc()">Submit</a>
+            <a class="sub" id="submit-button" href="#" onclick="return addacc()">Submit</a>
         </form>
+    </div>
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close"><a href="login.html" style="text-decoration: none;">&times;</a></span>
+            <p id="modal-message" style="margin-bottom: 30px; font-family: 'Poppins',sans-serif;"></p>
+            <a href="login.html" id="modal-button" style="text-decoration: none;">Ok</a>
+        </div>
     </div>
 </body>
 </html>
