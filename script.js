@@ -4,11 +4,27 @@ const chatbox = document.querySelector(".chatbox");
 
 // Expanded responses for a variety of keywords
 const responses = {
+    "brainrot":["what is brainrot","brainrot?","brainrot"],
+    "paper query m1":["where can i find bds m1 papers","where can i find pps m1 papers","where can i find calculus m1 papers",
+        "where can i find cal m1 papers","where can i find eob m1 papers","where can i find evs m1 papers","where are bds m1 papers",
+        "where are cal m1 papers","where are find pps m1 papers","where are fwd m1 papers","where are m1 papers","mid-term 1","midterm 1",
+        "mid-term-1","where can i find m1 papers"
+    ],
+    "paper query m2":["where can i find bds m2 papers","where can i find pps m2 papers","where can i find calculus m2 papers",
+        "where can i find cal m2 papers","where can i find eob m2 papers","where can i find evs m2 papers","where are bds m2 papers",
+        "where are cal m2 papers","where are find pps m2 papers","where are fwd m2 papers","where are m2 papers","mid-term 2","midterm 2",
+        "mid-term-2",
+    ],
+    "paper query tee":["where can i find bds tee papers","where can i find pps tee papers","where can i find calculus tee papers",
+        "where can i find cal tee papers","where can i find tee m1 papers","where can i find evs tee papers","where are bds tee papers",
+        "where are cal tee papers","where are find pps tee papers","where are fwd tee papers","where are tee papers","term-end-exam","term-end",
+        "term end","termend","term end exam"
+    ],
     "holidays":["vacations start","vacations","holidays"],
     "greetings": ["hello", "hi", "hey", "what's up", "howdy", "how are u?", "How are you?", "how u?", "how you?"],
     "farewell": ["bye", "goodbye", "see you later", "take care"],
     "thank": ["thank you", "thanks", "appreciate it", "thanku", "tysm"],
-    "introduction": ["what's your name", "who are you", "tell me about yourself", "who u?", "who you?"],
+    "introduction": ["what's your name", "who are you", "tell me about yourself", "who u?", "who you?","who are u","who are u?"],
     "help": ["help", "assist", "support"],
     "joke": ["tell me a joke", "make me laugh", "joke"],
     "do I have": ["do I have", "what do I have", "what's my schedule"],
@@ -21,13 +37,13 @@ const responses = {
     "inspiration": ["who inspires you?", "inspirational quotes", "motivation"],
     "news": ["what's the news?", "latest news", "news update"],
     "science": ["tell me something about science", "science facts", "science news"],
-    "schedule monday": ["what is my schedule on monday?", "whats the schedule on monday?", "whats my schedule on monday", "what is my schedule on monday", "schedule on monday?"],
-    "schedule tuesday": ["what is my schedule on tuesday?", "whats the schedule on tuesday?", "whats my schedule on tuesday", "what is my schedule on tuesday", "schedule on tuesday?"],
-    "schedule wednesday": ["what is my schedule on wednesday?", "whats the schedule on wednesday?", "whats my schedule on wednesday", "what is my schedule on wednesday", "schedule on wednesday?"],
-    "schedule thursday": ["what is my schedule on thursday?", "whats the schedule on thursday?", "whats my schedule on thursday", "what is my schedule on thursday", "schedule on thursday?"],
-    "schedule friday": ["what is my schedule on friday?", "whats the schedule on friday?", "whats my schedule on friday", "what is my schedule on friday", "schedule on friday?"],
-    "schedule saturday": ["what is my schedule on saturday?", "whats the schedule on saturday?", "whats my schedule on saturday", "what is my schedule on saturday", "schedule on saturday?"],
-    "schedule sunday": ["what is my schedule on sunday?", "whats the schedule on sunday?", "whats my schedule on sunday", "what is my schedule on sunday", "schedule on sunday?"],
+    "schedule monday": ["what is my schedule on monday?","monday", "whats the schedule on monday?", "whats my schedule on monday", "what is my schedule on monday", "schedule on monday?"],
+    "schedule tuesday": ["what is my schedule on tuesday?","teusday", "whats the schedule on tuesday?", "whats my schedule on tuesday", "what is my schedule on tuesday", "schedule on tuesday?"],
+    "schedule wednesday": ["what is my schedule on wednesday?","wednesday", "whats the schedule on wednesday?", "whats my schedule on wednesday", "what is my schedule on wednesday", "schedule on wednesday?"],
+    "schedule thursday": ["what is my schedule on thursday?","thursday", "whats the schedule on thursday?", "whats my schedule on thursday", "what is my schedule on thursday", "schedule on thursday?"],
+    "schedule friday": ["what is my schedule on friday?","friday","whats the schedule on friday?", "whats my schedule on friday", "what is my schedule on friday", "schedule on friday?"],
+    "schedule saturday": ["what is my schedule on saturday?","saturday", "whats the schedule on saturday?", "whats my schedule on saturday", "what is my schedule on saturday", "schedule on saturday?"],
+    "schedule sunday": ["what is my schedule on sunday?","sunday","whats the schedule on sunday?", "whats my schedule on sunday", "what is my schedule on sunday", "schedule on sunday?"],
     "prof.pps": [
         "who is my pps professor",
         "whose my pps professor",
@@ -145,6 +161,14 @@ const generateResponse = (userMessage) => {
         for (let keyword of responses[responseType]) {
             if (lowerCaseMessage.includes(keyword)) {
                 switch (responseType) {
+                    case "brainrot":
+                        return `Fe!n fe!n fe!n, I’m out here dodging the fanum tax, mewing like a sigma in the skibidi toilet, all for the ultimate fe!n fe!n fe!n grindset.`
+                    case "paper query m1":
+                        return `The Papers for M1 can be found at the bottom of the home page , or you can access them through individual subject tabs through our filters`
+                    case "paper query m2":
+                        return `The Papers for M2 can be found at the bottom of the home page , or you can access them through individual subject tabs through our filters`
+                    case "paper query tee":
+                        return `The Papers for TEE can be found at the bottom of the home page , or you can access them through individual subject tabs through our filters`
                     case "holidays":
                         return `Your Vacation Schedule : ${weeklySchedule.holidays}`;
                     case "prof.pps":
@@ -271,3 +295,29 @@ window.onload = function() {
         closePopup(); // Close the popup
     });
 };
+
+
+
+
+
+
+
+
+
+
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar'); // Use querySelector for a class
+    sidebar.classList.toggle('open');
+}
+
+document.addEventListener('click', (event) => {
+    const sidebar = document.querySelector('.sidebar'); // Use querySelector for a class
+    const navMenu = document.querySelector('.navmenu');
+    
+    if (!sidebar.contains(event.target) && !navMenu.contains(event.target)) {
+        sidebar.classList.remove('open');
+    }
+});
+
+
+
